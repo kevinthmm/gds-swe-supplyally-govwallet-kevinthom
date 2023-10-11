@@ -8,8 +8,18 @@ import {
     CardHeader,
     CardTitle,
 } from "./components/ui/card"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "./components/ui/dialog"
 import {Banana} from "lucide-react"
 import {RedemptionForm} from "./components/redemptionForm.tsx";
+
+
 
 function App() {
   return (
@@ -17,9 +27,26 @@ function App() {
         <div className={"w-screen h-screen bg-page-background flex flex-col items-center justify-center"}>
             <div className={"flex justify-between align-middle items-center max-w-screen-xl grow"}>
                 {/*Admin Tools Button for uploading and modifying database that is outside normal use.*/}
-                <Button variant={"outline"} className={"text-character-inverse fixed top-4 right-8 dark"}>
-                    <Banana className={"mr-2 text-yellow-300"}/>Admin Tools
-                </Button>
+                <Dialog >
+                    <DialogTrigger asChild={true}>
+                        <Button variant={"outline"} className={"text-character-inverse fixed top-4 right-8 dark"}>
+                            <Banana className={"mr-2 text-yellow-300"}/>Admin Tools
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>ADMIN TOOLS</DialogTitle>
+                            <DialogDescription className={"pb-4"}>
+                                If you are seeing this in production, something is wrong.
+                            </DialogDescription>
+                            <div className={"flex flex-col space-y-3"}>
+                                <Button>Upload Staffs CSV</Button>
+                                <Button className={"bg-christmas-red hover:bg-christmas-red hover:brightness-110"}>Clear Staff Table</Button>
+                                <Button className={"bg-christmas-red hover:bg-christmas-red hover:brightness-110"}>Clear Redemption Table</Button>
+                            </div>
+                        </DialogHeader>
+                    </DialogContent>
+                </Dialog>
                 {/*Image*/}
                 <img src={"/christmas.png"} alt="Christmas Image" className="w-1/2"/>
                 {/* Main Content*/}
