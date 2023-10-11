@@ -1,36 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+// import {Button} from "../@/components/ui/button.tsx";
+import {Button} from "./components/ui/button"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "./components/ui/card"
+import {Banana} from "lucide-react"
+import {RedemptionForm} from "./components/redemptionForm.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div className={"w-screen h-screen flex flex-col justify-center align-middle items-center"}>
-          <div className={"flex justify-center"}>
-              <a href="https://vitejs.dev" target="_blank">
-                  <img src={viteLogo} className="logo" alt="Vite logo" />
-              </a>
-              <a href="https://react.dev" target="_blank">
-                  <img src={reactLogo} className="logo react" alt="React logo" />
-              </a>
-          </div>
-          <h1 className={"flex"}></h1>
-          <h1 className={""}>Vite + React</h1>
-          <div className="card flex flex-col pt-4 space-y-4">
-              <button onClick={() => setCount((count) => count + 1)}>
-                  count is {count}
-              </button>
-              <p>
-                  Edit <code>src/App.tsx</code> and save to test HMR
-              </p>
-          </div>
-          <p className="read-the-docs">
-              Click on the Vite and React logos to learn more
-          </p>
-      </div>
+        <div className={"w-screen h-screen bg-page-background flex flex-col items-center justify-center"}>
+            <div className={"flex justify-between align-middle items-center max-w-screen-xl grow"}>
+                {/*Admin Tools Button for uploading and modifying database that is outside normal use.*/}
+                <Button variant={"outline"} className={"text-character-inverse fixed top-4 right-8 dark"}>
+                    <Banana className={"mr-2 text-yellow-300"}/>Admin Tools
+                </Button>
+                {/*Image*/}
+                <img src={"/christmas.png"} alt="Christmas Image" className="w-1/2"/>
+                {/* Main Content*/}
+                <div className={"flex flex-col items-end space-y-2 grow pr-[5%]"}>
+                    <h1 className={"text-7xl text-center text-white xl:text-8xl"}>HO HO HO!</h1>
+                    <h4 className={"text-2xl text-center text-white font-serif italic tracking-wide pb-2 xl:pb-8"}>'Tis the season for gifting</h4>
+                    <Card className={"w-4/5 dark bg-transparent max-w-lg"}>
+                        <CardHeader>
+                            <CardTitle>Redeem Gifts</CardTitle>
+                            <CardDescription className={""}>One representative to redeem on behalf of the entire team.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <RedemptionForm/>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
+            <footer className={"text-white brightness-50 text-center text-sm pb-4"}>
+                <p>© 2023 Seasonal Gifting</p>
+                <p>Made for gds-swe-supplyally-govwallet take home assignemnt</p>
+                <a href="https://www.linkedin.com/in/kevinthmm/">By Kevin Thom - https://www.linkedin.com/in/kevinthmm/</a>
+            </footer>
+        </div>
     </>
   )
 }

@@ -8,6 +8,10 @@ module.exports = {
     './src/**/*.{ts,tsx}',
 	],
   theme: {
+    fontFamily: {
+      sans: ['League Spartan', "sans-serif"],
+      serif: ['Libre Baskerville', "serif"]
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -17,6 +21,15 @@ module.exports = {
     },
     extend: {
       colors: {
+        // Custom colors
+        "page-background": "#18191E",
+        'character-primary': '#000000D9',
+        'character-secondary': '#00000073',
+        'character-disabledOrPlaceholder': '#00000040',
+        'character-inverse': '#ffffff',
+        'christmas-red': '#8A3236',
+        'christmas-green': '#21755D',
+        // End of custom colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
