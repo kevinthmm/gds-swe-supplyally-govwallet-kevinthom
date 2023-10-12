@@ -29,6 +29,7 @@ module.exports = {
         'character-inverse': '#ffffff',
         'christmas-red': '#8A3236',
         'christmas-green': '#21755D',
+
         // End of custom colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -44,7 +45,7 @@ module.exports = {
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
+          DEFAULT: "#8A3236",
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {

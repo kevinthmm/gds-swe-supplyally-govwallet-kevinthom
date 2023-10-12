@@ -23,13 +23,14 @@ redemptionRouter.post("/",body("staff_pass_id").isString() ,async (req: Request,
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
+    console.log(req.body.staff_pass_id)
     let team_name: string = ""
     let staff_pass_id: string = req.body.staff_pass_id;
     try {
         // First take the staff_pass_id to get the team_name
         team_name = await staffService.getTeamName(staff_pass_id);
     }catch (e) {
-        return res.status(500).send(e.message);
+        return res.status(404).json({message: `Staff Pass ID ${staff_pass_id} not found`})
     }
     try{
         // Then create the redemption with the team_name
@@ -45,9 +46,10 @@ redemptionRouter.post("/",body("staff_pass_id").isString() ,async (req: Request,
                     redeemed_by: redemptions.redeemed_by,
                     redeemed_at: new Date(Number(redemptions.redeemed_at)).toLocaleString('en-GB')
                 };
-                return res.status(200).json({msg: `OK: Redemption already exists`, redemptions: existingRedemption});
+                return res.status(500).json({
+                    message: `Gift was already redeemed by ${existingRedemption.redeemed_by} at ${existingRedemption.redeemed_at}`});
             }catch (e) {
-                return res.status(500).send(e.message);
+                return res.status(500).json({message:e.message});
             }
         }
         return res.status(500).send(e.message);
