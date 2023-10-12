@@ -47,7 +47,7 @@ redemptionRouter.post("/",body("staff_pass_id").isString() ,async (req: Request,
                     redeemed_at: new Date(Number(redemptions.redeemed_at)).toLocaleString('en-GB')
                 };
                 return res.status(500).json({
-                    message: `Gift was already redeemed by ${existingRedemption.redeemed_by} at ${existingRedemption.redeemed_at}`});
+                    message: `Team ${existingRedemption.team_name}'s gift was already redeemed by ${existingRedemption.redeemed_by} at ${existingRedemption.redeemed_at}`});
             }catch (e) {
                 return res.status(500).json({message:e.message});
             }
