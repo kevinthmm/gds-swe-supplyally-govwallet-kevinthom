@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JetClientState">
+    <option name="draftsState">
+      <draftsState>
+        <option name="requests">
+          <list>
+            <requestState>
+              <option name="id" value="e80d6c0b-1002-4553-8fe9-a3edf90e7720" />
+              <option name="method" value="GET" />
+              <option name="name" value="Server Index" />
+              <option name="url" value="http://localhost:5000" />
+            </requestState>
+            <requestState>
+              <option name="body">
+                <bodyState>
+                  <option name="raw" value="[&#10;  {&#10;    &quot;staff_pass_id&quot;: &quot;STAFF_H123804820G&quot;,&#10;    &quot;team_name&quot;: &quot;BASS&quot;,&#10;    &quot;created_at&quot;: 1623772799000&#10;  },&#10;  {&#10;    &quot;staff_pass_id&quot;: &quot;MANAGER_T999888420B&quot;,&#10;    &quot;team_name&quot;: &quot;RUST&quot;,&#10;    &quot;created_at&quot;: 1623772799000&#10;  },&#10;  {&#10;    &quot;staff_pass_id&quot;: &quot;BOSS_T000000001P&quot;,&#10;    &quot;team_name&quot;: &quot;RUST&quot;,&#10;    &quot;created_at&quot;: 1623872111000&#10;  }&#10;]" />
+                  <option name="type" value="JSON" />
+                </bodyState>
+              </option>
+              <option name="headers">
+                <list>
+                  <headerState>
+                    <option name="key" value="Content-Type" />
+                    <option name="value" value="application/json" />
+                  </headerState>
+                </list>
+              </option>
+              <option name="id" value="398df40d-8311-43bb-9f3d-e51e75019139" />
+              <option name="method" value="POST" />
+              <option name="name" value="create-test-staff" />
+              <option name="url" value="http://localhost:5000/api/staffs" />
+            </requestState>
+            <requestState>
+              <option name="id" value="d6d29117-a50e-4d08-b98e-1249ebb21c8c" />
+              <option name="method" value="DELETE" />
+              <option name="name" value="Delete All Staffs" />
+              <option name="url" value="http://localhost:5000/api/staffs" />
+            </requestState>
+            <requestState>
+              <option name="body">
+                <bodyState>
+                  <option name="raw" value="{&#10;  &quot;staff_pass_id&quot;: &quot;STAFF_H123804820G&quot;&#10;}" />
+                  <option name="type" value="JSON" />
+                </bodyState>
+              </option>
+              <option name="headers">
+                <list>
+                  <headerState>
+                    <option name="key" value="Content-Type" />
+                    <option name="value" value="application/json" />
+                  </headerState>
+                </list>
+              </option>
+              <option name="id" value="a77f913f-d214-4e70-ad9f-d2a0b5102df4" />
+              <option name="method" value="POST" />
+              <option name="name" value="Redeem" />
+              <option name="url" value="http://localhost:5000/api/redemption" />
+            </requestState>
+            <requestState>
+              <option name="id" value="b3e91a7f-fb44-4732-a469-842507e5c5d8" />
+              <option name="method" value="DELETE" />
+              <option name="name" value="Delete All Redemption" />
+              <option name="url" value="http://localhost:5000/api/redemption" />
+            </requestState>
+          </list>
+        </option>
+      </draftsState>
+    </option>
+    <option name="id" value="a6ce2c6c-0639-412f-9f8f-295281473199" />
+  </component>
+</project>

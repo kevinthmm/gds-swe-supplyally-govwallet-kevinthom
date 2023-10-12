@@ -1,5 +1,5 @@
 import './App.css'
-// import {Button} from "../@/components/ui/button.tsx";
+import Papa from 'papaparse'
 import {Button} from "./components/ui/button"
 import {
     Card,
@@ -16,15 +16,100 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "./components/ui/dialog"
+import {ChangeEvent, useEffect, useState} from "react";
 import {Banana} from "lucide-react"
 import {RedemptionForm} from "./components/redemptionForm.tsx";
+import {Input} from "./components/ui/input.tsx";
 
+// Helper function to convert csv to json
+const csvToJson = (file: File): Promise<any[]> => {
+    return new Promise((resolve, reject) => {
+        Papa.parse(file, {
+            complete: (result: { errors: string | any[]; data: any[] | PromiseLike<any[]> }) => {
+                if (result.errors.length) {
+                    reject(result.errors);
+                    return;
+                }
+                resolve(result.data);
+            },
+            header: true, // If your CSV has a header row, otherwise set to false
+        });
+    });
+};
 
+// This is a function that clears the staff table in the database.
+async function clearStaffTable(): Promise<void> {
+    const res :Response = await fetch("http://localhost:5000/api/staffs", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    if (res.ok) {
+        const json = await res.json()
+        console.log(json)
+    }
+    else {
+        console.log("Staff Table Clear Failed")
+    }
+}
+// This is a function that clears the staff table in the database.
+async function clearRedemptionTable(): Promise<void> {
+    const res :Response = await fetch("http://localhost:5000/api/redemption", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    if (res.ok) {
+        const json = await res.json()
+        console.log(json)
+    }
+    else {
+        console.log("Redemption Table Clear Failed")
+    }
+}
+// This is a function that uploads the csv data into the database.
+async function uploadStaffCSV(file: File|null): Promise<void> {
+    if (file == null) {
+        console.log("No file selected")
+        return
+    }
+    const jsonData:JSON[] = await csvToJson(file);
+    // Convert jsonData to string
+    const jsonString = JSON.stringify(jsonData);
+    const res :Response = await fetch("http://localhost:5000/api/staffs", {
+        method: "POST",
+        body: jsonString,
+        headers: {
+            "Content-Type": "application/json",  // Indicate we're sending JSON data
+        }
+    })
+    if (res.ok) {
+        const json = await res.json()
+        console.log(json)
+
+    }
+    else {
+        const json = await res.json()
+        console.log(json)
+    }
+}
 
 function App() {
+    // const [isLoading, setIsLoading] = useState(false) //used to maintain loading state
+    const [file, setFile] = useState<File | null>(null) //used to maintain loading state
+    useEffect(() => {});
+    // Handle file change
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files != null || e.target.files != undefined) {
+            const selectedFile = e.target.files[0];
+            setFile(selectedFile);
+        }
+    };
   return (
     <>
-        <div className={"w-screen h-screen bg-page-background flex flex-col items-center justify-center"}>
+        <div className={"w-screen h-screen bg-page-background flex flex-col items-center justify-center pt-4"}>
             <div className={"flex justify-between align-middle items-center max-w-screen-xl grow"}>
                 {/*Admin Tools Button for uploading and modifying database that is outside normal use.*/}
                 <Dialog >
@@ -40,9 +125,10 @@ function App() {
                                 If you are seeing this in production, something is wrong.
                             </DialogDescription>
                             <div className={"flex flex-col space-y-3"}>
-                                <Button>Upload Staffs CSV</Button>
-                                <Button className={"bg-christmas-red hover:bg-christmas-red hover:brightness-110"}>Clear Staff Table</Button>
-                                <Button className={"bg-christmas-red hover:bg-christmas-red hover:brightness-110"}>Clear Redemption Table</Button>
+                                <Input type={"file"} accept={".csv"} id-={'uploadField'} onChange={handleFileChange}></Input>
+                                <Button onClick={() => uploadStaffCSV(file)}>Upload Staffs CSV</Button>
+                                <Button onClick={clearStaffTable} className={"bg-christmas-red hover:bg-christmas-red hover:brightness-110"}>Clear Staff Table</Button>
+                                <Button onClick={clearRedemptionTable} className={"bg-christmas-red hover:bg-christmas-red hover:brightness-110"}>Clear Redemption Table</Button>
                             </div>
                         </DialogHeader>
                     </DialogContent>
@@ -73,5 +159,4 @@ function App() {
     </>
   )
 }
-
 export default App

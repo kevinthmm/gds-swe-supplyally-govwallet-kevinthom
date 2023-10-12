@@ -8,7 +8,7 @@ import {Button} from "./ui/button.tsx";
 import {Input} from "./ui/input.tsx";
 
 const formSchema = z.object({
-    staff_pass_id: z.string().min(1, {"message": "Please enter your Staff Pass ID."})
+    staff_pass_id: z.string().min(1, {"message": "Please enter your staff Pass ID."})
 })
 
 export function RedemptionForm() {
