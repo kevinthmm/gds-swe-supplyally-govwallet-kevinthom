@@ -29,7 +29,7 @@ export function RedemptionForm() {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         console.log(values.staff_pass_id)
-        let staff_pass_id = values.staff_pass_id
+        const staff_pass_id = values.staff_pass_id
         const res: Response = await fetch("http://localhost:5000/api/redemption", {
             method: "POST",
             headers: {

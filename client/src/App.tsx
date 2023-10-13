@@ -32,17 +32,17 @@ function App() {
     // Instantiate toast
     const { toast } = useToast()
 // Helper function to convert csv to json
-    const csvToJson = (file: File): Promise<any[]> => {
+    const csvToJson = (file: File): Promise<JSON[]> => {
         return new Promise((resolve, reject) => {
-            Papa.parse(file, {
-                complete: (result: { errors: string | any[]; data: any[] | PromiseLike<any[]> }) => {
+            Papa.parse<JSON>(file, {
+                complete: (result) => {
                     if (result.errors.length) {
                         reject(result.errors);
                         return;
                     }
                     resolve(result.data);
                 },
-                header: true, // If your CSV has a header row, otherwise set to false
+                header: true,
             });
         });
     };
