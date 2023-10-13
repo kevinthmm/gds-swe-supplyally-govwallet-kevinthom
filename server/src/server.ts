@@ -5,10 +5,12 @@ import bodyParser from "body-parser";
 import {staffRouter} from "./staff/staff.router";
 import {redemptionRouter} from "./redemption/redemption.router";
 
+// Check if environment variables are set
 dotenv.config();
 if (!process.env.PORT) {
     process.exit(1);
 }
+// Set port to environment variable and create express app
 const PORT: number = parseInt(process.env.PORT as string, 10);
 const app:Express = express();
 app.use(cors());

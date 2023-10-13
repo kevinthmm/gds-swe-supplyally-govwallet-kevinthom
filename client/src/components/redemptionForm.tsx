@@ -49,7 +49,7 @@ export function RedemptionForm() {
             console.log("Redemption Failed")
             toast({
                 variant: "destructive",
-                title: "Failed!",
+                title: "Sorry,",
                 description: json.message
             })
         }

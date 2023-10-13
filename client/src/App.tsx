@@ -19,26 +19,16 @@ import {
 } from "./components/ui/dialog"
 import {Input} from "./components/ui/input.tsx";
 import { useToast } from "./components/ui/use-toast"
-import {ChangeEvent, useEffect, useState} from "react";
-import {Banana} from "lucide-react"
+import {ChangeEvent, useState} from "react";
+import {Banana, Loader2} from "lucide-react"
 import {RedemptionForm} from "./components/redemptionForm.tsx";
 import {Toaster} from "./components/ui/toaster.tsx";
+import {Separator} from "./components/ui/separator.tsx";
 
 function App() {
-    // const [isLoading, setIsLoading] = useState(false) //used to maintain loading state
+    const [isLoading, setIsLoading] = useState(false) //used to maintain loading state
     const [file, setFile] = useState<File | null>(null) //used to maintain loading state
-    // Trigger Snow!!
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = 'pure-snow.js';
-        script.async = true;
 
-        document.body.appendChild(script);
-        return () => {
-            // Cleanup on component unmount
-            document.body.removeChild(script);
-        };
-    }, []);
     // Instantiate toast
     const { toast } = useToast()
 // Helper function to convert csv to json
@@ -98,6 +88,7 @@ function App() {
     }
 // This is a function that uploads the csv data into the database.
     async function uploadStaffCSV(file: File|null): Promise<void> {
+        setIsLoading(true)
         if (file == null) {
             console.log("No file selected")
             toast({
@@ -105,6 +96,7 @@ function App() {
                 title: "Error!",
                 description: "No file selected",
             })
+            setIsLoading(false)
             return
         }
         const jsonData:JSON[] = await csvToJson(file);
@@ -134,6 +126,7 @@ function App() {
                 description: json.message,
             })
         }
+        setIsLoading(false)
     }
 
     // Handle file change
@@ -146,7 +139,7 @@ function App() {
   return (
     <>
         <Snowfall style={{opacity: "30%"}}/>
-        <div className={"w-screen h-screen bg-page-background flex flex-col items-center justify-center pt-4"}>
+        <div className={"w-full min-h-screen bg-page-background flex flex-col items-center justify-center md:pt-8"}>
             <div className={"flex justify-between align-middle items-center max-w-screen-xl grow flex-col md:flex-row"}>
                 {/*Admin Tools Button for uploading and modifying database that is outside normal use.*/}
                 <Dialog >
@@ -163,7 +156,12 @@ function App() {
                             </DialogDescription>
                             <div className={"flex flex-col space-y-3"}>
                                 <Input type={"file"} accept={".csv"} id-={'uploadField'} onChange={handleFileChange}></Input>
-                                <Button onClick={() => uploadStaffCSV(file)}>Upload Staffs CSV</Button>
+                                <Button onClick={() => uploadStaffCSV(file)} className={`w-full ${isLoading ? 'hidden' : ''}`}>Upload Staffs CSV</Button>
+                                <Button disabled className={`w-full ${isLoading ? '' : 'hidden'}`}>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Please wait
+                                </Button>
+                                <Separator/>
                                 <Button onClick={clearStaffTable} className={"bg-christmas-red hover:bg-christmas-red hover:brightness-110"}>Clear Staff Table</Button>
                                 <Button onClick={clearRedemptionTable} className={"bg-christmas-red hover:bg-christmas-red hover:brightness-110"}>Clear Redemption Table</Button>
                             </div>
@@ -171,11 +169,11 @@ function App() {
                     </DialogContent>
                 </Dialog>
                 {/*Image*/}
-                <img src={"/christmas.png"} alt="Christmas Image" className="w-1/2"/>
+                <img src={"/christmas.png"} alt="Christmas Image" className="w-1/2 pt-8 md:pt-24 min-w-[24rem]"/>
                 {/* Main Content*/}
                 <div className={"flex flex-col items-center md:items-end space-y-2 grow md:pr-[5%]"}>
                     <h1 className={"text-5xl text-center text-white sm:text-6xl lg:text-7xl xl:text-8xl "}>HO HO HO!</h1>
-                    <h4 className={"text-2xl text-center text-white font-serif italic tracking-wide pb-2 xl:pb-8"}>'Tis the season for gifting</h4>
+                    <h4 className={"text-2xl text-center text-white font-serif italic tracking-wide pb-4 xl:pb-16"}>'Tis the season for gifting</h4>
                     <Card className={"w-4/5 dark bg-transparent max-w-lg"}>
                         <CardHeader>
                             <CardTitle>Redeem Gifts</CardTitle>
@@ -187,12 +185,12 @@ function App() {
                     </Card>
                 </div>
             </div>
-            <footer className={"text-white brightness-50 text-center text-sm pb-4"}>
+            <footer className={"text-white brightness-50 text-center text-sm py-8"}>
                 <p>© 2023 Seasonal Gifting</p>
                 <p>Made for gds-swe-supplyally-govwallet take home assignemnt</p>
                 <a href="https://www.linkedin.com/in/kevinthmm/">By Kevin Thom - https://www.linkedin.com/in/kevinthmm/</a>
             </footer>
-        </div>xc
+        </div>
         <Toaster />
     </>
   )

@@ -19,11 +19,12 @@ redemptionRouter.get("/", async (req: Request, res: Response):Promise<Response> 
 
 // POST: Create redemption based on array of redemption provided, return successful creations only.
 redemptionRouter.post("/",body("staff_pass_id").isString() ,async (req: Request, res: Response):Promise<Response> => {
+    // Check for validation errors in the request body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
-    console.log(req.body.staff_pass_id)
+
     let team_name: string = ""
     let staff_pass_id: string = req.body.staff_pass_id;
     try {
@@ -47,7 +48,8 @@ redemptionRouter.post("/",body("staff_pass_id").isString() ,async (req: Request,
                     redeemed_at: new Date(Number(redemptions.redeemed_at)).toLocaleString('en-GB')
                 };
                 return res.status(500).json({
-                    message: `Team ${existingRedemption.team_name}'s gift was already redeemed by ${existingRedemption.redeemed_by} at ${existingRedemption.redeemed_at}`});
+                    message: `Team ${existingRedemption.team_name}'s gift was already redeemed by 
+                    ${existingRedemption.redeemed_by} at ${existingRedemption.redeemed_at} Hrs`});
             }catch (e) {
                 return res.status(500).json({message:e.message});
             }
