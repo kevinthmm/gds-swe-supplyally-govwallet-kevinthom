@@ -6,6 +6,11 @@ import {Staff} from "@prisma/client";
 
 export const staffRouter = express.Router();
 
+// GET: Test
+staffRouter.get("/", async (req: Request, res: Response):Promise<Response> => {
+    return res.status(200).json({message: "OK: Staffs Endpoint"});
+})
+
 // POST: Create staffs based on array of staffs provided, return successful creations only.
 staffRouter.post("/",
     [
@@ -31,10 +36,10 @@ staffRouter.post("/",
             return res.status(200).json({message: "OK: All Staffs created"});
         }
         else if (results === staffs.length){
-            return res.status(400).json({message: "No Staffs created due to duplicates"});
+            return res.status(409).json({message: "No Staffs created due to duplicates"});
         }
         else{
-            return res.status(200).json({message: `${results} Staffs Skipped Duplicate Error`});
+            return res.status(207).json({message: `${results} Staffs Skipped Duplicate Error`});
         }
     }catch (e) {
         return res.status(500).send(e.message);

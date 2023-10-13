@@ -6,15 +6,9 @@ import {Redemption} from "@prisma/client";
 import * as staffService from "../staff/staff.service";
 
 export const redemptionRouter = express.Router();
-//GET: Get redemption based on team_name
+//GET: Test Redemption Endpoint
 redemptionRouter.get("/", async (req: Request, res: Response):Promise<Response> => {
-    try {
-        const team_name: string = req.query.team_name as string;
-        const redemptions: Redemption = await redemptionService.getRedemption(team_name);
-        return res.status(200).json({redemptions: redemptions});
-    }catch (e) {
-        return res.status(500).send(e.message);
-    }
+    return res.status(200).json({message: `OK: Redemption Endpoint`});
 })
 
 // POST: Create redemption based on array of redemption provided, return successful creations only.
@@ -47,7 +41,7 @@ redemptionRouter.post("/",body("staff_pass_id").isString() ,async (req: Request,
                     redeemed_by: redemptions.redeemed_by,
                     redeemed_at: new Date(Number(redemptions.redeemed_at)).toLocaleString('en-GB')
                 };
-                return res.status(500).json({
+                return res.status(409).json({
                     message: `Team ${existingRedemption.team_name}'s gift was already redeemed by 
                     ${existingRedemption.redeemed_by} at ${existingRedemption.redeemed_at} Hrs`});
             }catch (e) {
